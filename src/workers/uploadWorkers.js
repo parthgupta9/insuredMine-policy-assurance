@@ -8,29 +8,7 @@ const csv = require("csv-parser");
 
 const rows = [];
 
-async function processAgents(agentMap) {
-  await mongoose.connect(process.env.MONGO_URI);
-
-  const agents = [...agentMap.keys()].map(
-    (agentName) => ({
-      agentName,
-    })
-  );
-
-  const insertedAgents =
-    await Agent.insertMany(agents, {
-      ordered: false,
-    });
-
-  return insertedAgents.length;
-}
-
-fs.createReadStream(workerData.filePath)
-  .pipe(csv())
-  .on("data", (row) => {
-    rows.push(row);
-  })
- .on("end",async () => {
+function buildMaps(rows) {
   const agentMap = new Map();
   const carrierMap = new Map();
   const lobMap = new Map();
@@ -68,9 +46,50 @@ fs.createReadStream(workerData.filePath)
 
     userMap.set(userKey, null);
   });
-    console.log([...agentMap.keys()]);
 
-  try {
+  return {
+    agentMap,
+    carrierMap,
+    lobMap,
+    accountMap,
+    userMap,
+  };
+}
+
+async function processAgents(agentMap) {
+  await mongoose.connect(process.env.MONGO_URI);
+
+  const agents = [...agentMap.keys()].map(
+    (agentName) => ({
+      agentName,
+    })
+  );
+
+  const insertedAgents =
+    await Agent.insertMany(agents, {
+      ordered: false,
+    });
+
+  return insertedAgents.length;
+}
+
+
+fs.createReadStream(workerData.filePath)
+  .pipe(csv())
+  .on("data", (row) => {
+    rows.push(row);
+  })
+ .on("end", async() => {
+
+const {
+  agentMap,
+  carrierMap,
+  lobMap,
+  accountMap,
+  userMap,
+} = buildMaps(rows);
+
+try {
   const insertedAgents =
     await processAgents(agentMap);
 
