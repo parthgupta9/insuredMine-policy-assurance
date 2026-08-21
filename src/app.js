@@ -1,6 +1,7 @@
 const express = require("express");
 const uploadRoutes = require("./routes/uploadRoute");
 const policyRoutes = require("./routes/policyRoute");
+const messageRoutes = require("./routes/messageRoute");
 
 const app = express();
 
@@ -10,6 +11,10 @@ app.use("/api/upload", uploadRoutes);
 app.use(
   "/api/policies",
   policyRoutes
+);
+app.use(
+  "/api/messages",
+  messageRoutes
 );
 
 app.get("/health", (req, res) => {

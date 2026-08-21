@@ -1,35 +1,34 @@
 const mongoose = require("mongoose");
 
-const scheduledMessageSchema = new mongoose.Schema(
-  {
-    message: {
-      type: String,
-      required: true,
-      trim: true,
+const scheduledMessageSchema =
+  new mongoose.Schema(
+    {
+      message: {
+        type: String,
+        required: true,
+      },
+
+      scheduledAt: {
+        type: Date,
+        required: true,
+      },
+
+      status: {
+        type: String,
+        enum: [
+          "pending",
+          "completed",
+        ],
+        default: "pending",
+      },
     },
+    {
+      timestamps: true,
+    }
+  );
 
-    scheduledDate: {
-      type: Date,
-      required: true,
-    },
-
-    status: {
-      type: String,
-      enum: ["PENDING", "SENT"],
-      default: "PENDING",
-    },
-  },
-  {
-    timestamps: true,
-  }
-);
-
-scheduledMessageSchema.index({
-  status: 1,
-  scheduledDate: 1,
-});
-
-module.exports = mongoose.model(
-  "ScheduledMessage",
-  scheduledMessageSchema
-);
+module.exports =
+  mongoose.model(
+    "ScheduledMessage",
+    scheduledMessageSchema
+  );
