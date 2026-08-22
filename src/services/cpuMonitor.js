@@ -10,7 +10,7 @@ function startCpuMonitor() {
         `CPU Usage: ${stats.cpu.toFixed(2)}%`
       );
 
-      if (stats.cpu > 0) {
+      if (stats.cpu > 70) {
         console.log(
           "CPU exceeded 70%. Restarting..."
         );

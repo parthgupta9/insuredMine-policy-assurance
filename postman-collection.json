@@ -1,0 +1,146 @@
+{
+  "info": {
+    "name": "InsuredMine Technical Assessment",
+    "_postman_id": "f3b6f7f4-9c2b-4f5d-8c8a-1a2b3c4d5e6f",
+    "description": "Postman Collection for InsuredMine Technical Assessment APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Upload CSV/XLSX",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": ""
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/upload",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "upload"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Search Policy By Username",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/policies/search?username=Lura%20Lucca",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "policies",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "username",
+              "value": "Lura Lucca"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Aggregate Policies By User",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/policies/aggregate",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "policies",
+            "aggregate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Schedule Message",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"message\": \"Hello Parth\",\n    \"day\": \"2026-08-23\",\n    \"time\": \"15:30\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/messages/schedule",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "messages",
+            "schedule"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Executed Messages",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/messages",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "messages"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "health"
+          ]
+        }
+      }
+    }
+  ]
+}
